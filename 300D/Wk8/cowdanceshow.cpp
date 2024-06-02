@@ -1,37 +1,38 @@
 #include <bits/stdc++.h>
 #define FASTIO ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 using namespace std;
+int n, tMax, l, r, m, i, t;
+vector<int> times;
 
-vector<int> cows;
-int n;
-
-int calcTime(int stage) {
-    priority_queue<int> order;
-
+bool check() {
+  priority_queue<int, vector<int>, greater<int>> q;
+  for (int i=0; i<m; i++) {
+    q.push(times[i]);
+  }
+  for (int i=m; i<n; i++) {
+    if (q.top() + times[i] > tMax) return false;
+    q.push(q.top() + times[i]);
+    q.pop();
+  }
+  return true;
 }
-
 int main() {
-    FASTIO;
-    int tMax, x, left=0, right, mid, time;
-    cin >> n >> tMax;
-    for (int i=0; i<n; i++) {
-        cin >> x;
-        cows.push_back(x);
+  FASTIO;
+  cin >> n >> tMax;
+  for (int i=0; i<n; i++) {
+    cin >> t;
+    times.emplace_back(t);
+  }
+  l=1, r=n;
+  while (r>=l) {
+    m = (l+r)/2;
+    if (!check()) {
+      l = m+1;
     }
-    right = n;
-
-    while (left < right) {
-        mid = (right+left)/2;
-        time = calcTime(mid);
-        if (mid == tMax) {
-            cout << mid;
-            return 0;
-        }
-        else if (mid < tMax) {
-            left = mid+1;
-        }
-        else {
-            right = mid;
-        }
+    else {
+      r = m-1;
     }
+  }
+  cout << l;
+  return 0;
 }
