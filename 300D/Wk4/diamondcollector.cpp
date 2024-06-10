@@ -3,11 +3,11 @@
 using namespace std;
 
 int main() {FASTIO;
-  int n, k, i, l=1, lMax=0, rMax=0, ans=0;
+  int n, k, i, lp=1, lMax=0, rMax=0, ans=0;
   cin >> n >> k;
-  int r = n;
+  int rp = n;
 
-  vector<int> d(n+1, 0), left(n+1, 0), right(n+1, 0);
+  vector<int> d(n+1, 0), l(n+1, 0), r(n+1, 0);
   for (int i=0; i<n; i++) {
     cin >> d[i+1];
   }
@@ -20,7 +20,7 @@ int main() {FASTIO;
     l[i] = lMax;
 
     if (d[rp]-d[n+1-i] > k) rp--;
-    else rmax++;
+    else rMax++;
     r[i] = rMax;
   }
 
